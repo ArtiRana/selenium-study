@@ -5,11 +5,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class webElementPractice {
     private final String baseUrl = "https://www.qaguru.ca/webelementapp.php";
@@ -40,7 +43,34 @@ public class webElementPractice {
 
         driver.findElement(By.xpath("//*[@id=\"home-5\"]/form[2]/input[2]"))
                 .click();
+    }
+
+    @Test
+    public void SetTextBox()
+    {
+        WebElement webElement= driver.findElement(By.name("firstname"));
+        webElement.clear();
+        webElement.sendKeys("john");
 
     }
+
+    @Test
+    public void ListBox()
+    {
+        WebElement webElement=driver.findElement(By.name("cars"));
+        Select select=new Select(webElement);
+        select.selectByVisibleText("Audi");
+        List<WebElement> webElements= select.getOptions();
+        for(WebElement we: webElements)
+            System.out.println(we.getText());
+
+    }
+
+    @Test
+    public void checkBox()
+    {
+        driver.findElement(By.name("vehicle1")).click();
+    }
+
 
 }
